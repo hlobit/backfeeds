@@ -5,6 +5,9 @@ module.exports = function getCurrentUser(request, response, next) {
 
   var userHeader = request.headers.user;
 
+  // SET THE HEADER	FOR THE RESPONSE
+  response.set({ 'User': userHeader });
+
   // IF THERE IS NO USER HEADER, YOU CAN'T DO ANYTHING
   if(!userHeader) {
     response.status(401).send('Please log as a user.');
@@ -18,15 +21,16 @@ module.exports = function getCurrentUser(request, response, next) {
     .then(function(user) {
       if(user){
         request.currentUser = user;
+        next();
       } else {
         bookshelf.model('User')
           .forge({ username: userHeader })
-          .save();
+          .save()
+          .then(function(user) {
+            request.currentUser = user;
+            next();
+          });
       }
     });
-
-  // SET THE HEADER	FOR THE RESPONSE
-  response.set({ 'User': userHeader });
-  next();
 
 };
