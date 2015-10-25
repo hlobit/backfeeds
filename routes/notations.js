@@ -31,8 +31,7 @@ notationsRouter.route('/')
         } else {
           promise = request.feedback
             .notations()
-            .create({ user_id: request.currentUser.id, value: request.body.value })
-            .save();
+            .create({ user_id: request.currentUser.id, value: request.body.value });
         }
         promise
           .then(function(notation){
