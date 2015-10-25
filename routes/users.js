@@ -1,5 +1,5 @@
-var bookshelf = require('../bookshelf');
-var express = require('express');
+var express = require('express')
+  , bookshelf = require('../bookshelf');
 
 var usersRouter = express.Router();
 
