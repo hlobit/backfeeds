@@ -2,7 +2,6 @@ var express = require('express')
   , bookshelf = require('../bookshelf');
 
 var notationsRouter = express.Router({mergeParams: true});
-notationsRouter.param('id', bookshelf.model('Feedback').findById);
 
 notationsRouter.route('/')
   .get(function(request, response) {
@@ -27,12 +26,12 @@ notationsRouter.route('/')
       .then(function (notation) {
         var promise;
         if(notation) {
-          promise = notation.save({ value: request.body.value }, { patch: true });
+          promise = notation
+            .save({ value: request.body.value }, { patch: true });
         } else {
-          promise = self.create({
-            user_id: request.currentUser.id,
-            value: request.body.value
-          });
+          promise = bookshelf.model('Notation')
+            .forge({ user_id: request.currentUser.id, value: request.body.value })
+            .save();
         }
         promise
           .then(function(notation){

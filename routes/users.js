@@ -2,19 +2,7 @@ var express = require('express')
   , bookshelf = require('../bookshelf');
 
 var usersRouter = express.Router();
-
-var findByUsername = function(request, response, next, username){
-  bookshelf.model('User')
-    .where({ username: username })
-    .fetch({ withRelated: ['feedbacks', 'comments', 'notations'] })
-    .then(function(user) {
-      if (!user) { response.sendStatus(404); return; };
-      request.user = user;
-      next();
-    });
-};
-
-usersRouter.param('username', findByUsername);
+usersRouter.param('username', bookshelf.model('User').findByUsername);
 
 usersRouter.route('/')
   .get(function(request, response){

@@ -2,7 +2,6 @@ var express = require('express')
   , bookshelf = require('../bookshelf');
 
 var commentsRouter = express.Router({mergeParams: true});
-commentsRouter.param('id', bookshelf.model('Feedback').findById);
 
 commentsRouter.route('/')
   .get(function(request, response) {

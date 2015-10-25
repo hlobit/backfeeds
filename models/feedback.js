@@ -19,7 +19,7 @@ var Feedback = bookshelf.Model.extend({
 });
 
 // FEEDBACK FINDER
-Feedback.findById = function(request, response, next, id){
+Feedback.findById = function(request, response, next, id) {
   bookshelf.model('Feedback')
     .where({ id: id })
     .fetch({ withRelated: ['user', 'comments', 'notations'] })

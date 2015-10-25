@@ -16,4 +16,15 @@ var User = bookshelf.Model.extend({
   }
 });
 
+User.findByUsername = function(request, response, next, username) {
+  bookshelf.model('User')
+    .where({ username: username })
+    .fetch({ withRelated: ['feedbacks', 'comments', 'notations'] })
+    .then(function(user) {
+      if (!user) { response.sendStatus(404); return; };
+      request.user = user;
+      next();
+    });
+};
+
 module.exports = bookshelf.model('User', User);
