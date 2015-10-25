@@ -7,6 +7,12 @@ var User = bookshelf.Model.extend({
   hasTimestamps: true,
   feedbacks: function() {
     return this.hasMany('Feedback');
+  },
+  comments: function() {
+    return this.hasMany('Comment');
+  },
+  notations: function() {
+    return this.hasMany('Notation');
   }
 });
 

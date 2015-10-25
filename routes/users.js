@@ -16,6 +16,15 @@ var findByUsername = function(request, response, next, username){
 
 usersRouter.param('username', findByUsername);
 
+usersRouter.route('/')
+  .get(function(request, response){
+    bookshelf.model('User')
+      .fetchAll()
+      .then(function(users) {
+        response.status(200).json(users);
+      });
+  });
+
 usersRouter.route('/:username')
   .get(function(request, response) {
     response.status(200).json(request.user);
