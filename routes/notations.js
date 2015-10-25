@@ -29,8 +29,9 @@ notationsRouter.route('/')
           promise = notation
             .save({ value: request.body.value }, { patch: true });
         } else {
-          promise = bookshelf.model('Notation')
-            .forge({ user_id: request.currentUser.id, value: request.body.value })
+          promise = request.feedback
+            .notations()
+            .create({ user_id: request.currentUser.id, value: request.body.value })
             .save();
         }
         promise
