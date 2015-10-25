@@ -1,5 +1,8 @@
-var dotenv = require('dotenv')
-  , express = require('express')
+if(process.env.NODE_ENV == 'development') {
+  require('dotenv').load();
+}
+
+var express = require('express')
   , logger = require('morgan')
   , bodyParser = require('body-parser');
 
@@ -10,8 +13,6 @@ var users = require('./routes/users')
   , feedbacks = require('./routes/feedbacks');
 
 var app = express();
-
-dotenv.load();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

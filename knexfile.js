@@ -1,4 +1,6 @@
-require('dotenv').load();
+if(process.env.NODE_ENV == 'development') {
+  require('dotenv').load();
+}
 
 if(!process.env.DATABASE_URL) {
   throw new Error('You must set the environment variable DATABASE_URL to an existing database.');
