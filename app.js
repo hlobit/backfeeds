@@ -3,6 +3,7 @@ if(process.env.NODE_ENV == 'development') {
 }
 
 var express = require('express')
+  , cors = require('cors')
   , logger = require('morgan')
   , bodyParser = require('body-parser');
 
@@ -18,12 +19,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(function(request, response, next) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
+app.use(cors());
 app.use(validator);
 app.use(authenticator);
 
