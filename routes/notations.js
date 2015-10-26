@@ -25,19 +25,20 @@ notationsRouter.route('/')
       .query({ where: { user_id: request.currentUser.id }})
       .fetchOne()
       .then(function (notation) {
-        var promise;
         if(notation) {
           promise = notation
-            .save({ value: request.body.value }, { patch: true });
+            .save({ value: request.body.value }, { patch: true })
+            .then(function(notation){
+              response.status(200).json(notation);
+            });
         } else {
           promise = request.feedback
             .notations()
-            .create({ user_id: request.currentUser.id, value: request.body.value });
+            .create({ user_id: request.currentUser.id, value: request.body.value })
+            .then(function(notation){
+              response.status(201).json(notation);
+            });
         }
-        promise
-          .then(function(notation){
-            response.status(201).json(notation);
-          });
       });
   });
 
