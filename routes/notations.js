@@ -22,7 +22,8 @@ notationsRouter.route('/')
     // YOU MAY CHANGE YOUR NOTATION
     request.feedback
       .notations()
-      .fetchOne({ user_id: request.currentUser.id })
+      .query({ where: { user_id: request.currentUser.id }})
+      .fetchOne()
       .then(function (notation) {
         var promise;
         if(notation) {

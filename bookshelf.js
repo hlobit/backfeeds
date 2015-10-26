@@ -3,6 +3,7 @@ var knex = require('knex')(knexfile.development);
 
 var bookshelf = require('bookshelf')(knex);
 bookshelf.plugin('registry');
+bookshelf.plugin('virtuals');
 
 module.exports = bookshelf;
 
