@@ -18,7 +18,7 @@ feedbacksRouter.route('/')
       });
   })
   .post(function(request, response) {
-    request.checkBody('rate', 'Invalid rate : it must be an integer from 1 to 5.')
+    request.checkBody('rating', 'Invalid rating : it must be an integer from 1 to 5.')
       .notEmpty().isInt().gte(1).lte(5);
 
     var errors = request.validationErrors();
@@ -27,7 +27,7 @@ feedbacksRouter.route('/')
     request.currentUser
       .feedbacks()
       .create({
-        rate: request.body.rate,
+        rating: request.body.rating,
         note: request.body.note
       })
       .then(function(feedback){

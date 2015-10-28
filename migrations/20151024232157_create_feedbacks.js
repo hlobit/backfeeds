@@ -1,7 +1,7 @@
 var schema = function(t) {
   t.increments().primary();
   t.integer('user_id').notNullable();
-  t.integer('rate').notNullable();
+  t.integer('rating').notNullable();
   t.string('note');
   t.timestamps();
 };
