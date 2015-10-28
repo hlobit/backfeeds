@@ -12,7 +12,7 @@ feedbacksRouter.use('/:id/notations', notationsRouter);
 feedbacksRouter.route('/')
   .get(function(request, response){
     bookshelf.model('Feedback')
-      .fetchAll({ withRelated: ['user', 'comments', 'notations'] })
+      .fetchAll({ withRelated: ['user', 'comments.user', 'notations'] })
       .then(function(feedbacks) {
         response.status(200).json(feedbacks);
       });
